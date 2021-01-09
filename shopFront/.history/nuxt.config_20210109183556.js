@@ -74,14 +74,15 @@ export default {
   },
 
 // axios proxy configuration
-proxy: {
-  '/api': {
-    target: 'http://127.0.0.1:8000/api',
-    pathRewrite: {
-      '^/api/': ''
+  proxy: {
+    '/api': {
+      target: 'http://localhost:8000/api',
+      pathRewrite: {
+        '^/api/': ''
+      }
     }
-  }
-},
+    // '/api/': 'http://localhost:8000',
+  },
    // axios module configuration
    axios: {
     credentials: true,

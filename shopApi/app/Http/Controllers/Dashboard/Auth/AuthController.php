@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Dashboard\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -15,17 +13,14 @@ use Illuminate\Validation\ValidationException;
 class AuthController extends Controller
 {
     public function login (Request $request){
-//        $request->validate([
-//            'email' => 'required|email',
-//            'password' => 'required',
-//        ]);
 
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required',
         ]);
         if ($validator->fails()) {
-            return response()->json( [ 'errors' => $validator->errors() ], 400 );
+           // return response()->json( [ 'errors' => $validator->errors() ], 400 );
+            return response()->json(['riiiiiiiiiiiiiiiiidii'],400 );
         }else{
             $user = User::where('email', $request->email)->first();
         }
@@ -62,6 +57,11 @@ class AuthController extends Controller
                 'password'=>Hash::make($request->password)
             ]);
         }
+    }
+
+    public function user ()
+    {
+
     }
 
     public function logout (Request $request) {

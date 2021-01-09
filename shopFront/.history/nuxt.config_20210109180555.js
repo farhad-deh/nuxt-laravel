@@ -49,17 +49,21 @@ export default {
       local: {
         endpoints: {
           login: {
-            url: 'api/panel/auth/login',
+            url: 'login',
             method: 'post',
             propertyName: 'token'
           },
+          // register: {
+          //   url: 'api/panel/auth/register',
+          //   method: 'post',
+          // },
           user: {
-            url: 'api/panel/auth/user',
+            url: 'user',
             method: 'get',
             propertyName: 'data'
           },
           logout: {
-            url: 'api/panel/auth/logout',
+            url: 'logout',
             method: 'get',
             propertyName: false
           },
@@ -73,23 +77,24 @@ export default {
     }
   },
 
-// axios proxy configuration
-proxy: {
-  '/api': {
-    target: 'http://127.0.0.1:8000/api',
-    pathRewrite: {
-      '^/api/': ''
-    }
-  }
-},
-   // axios module configuration
-   axios: {
+ // axios module configuration
+  axios: {
     credentials: true,
     progress: true,
     proxy: true,
-    // baseURL :'http://localhost:8000/api' ,
+    //baseURL :'http://localhost:8000/api' ,
   },
 
+
+// axios proxy configuration
+  proxy: {
+    '/api': {
+      target: 'http://localhost:8000/api/panel/auth/',
+      pathRewrite: {
+        '^/api/': ''
+      }
+    }
+  },
 
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {

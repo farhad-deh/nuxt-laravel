@@ -103,7 +103,7 @@
                         <h4 class="text-center mt-4">
                           Ensure your email for registration
                         </h4>
-                        <v-form @keydown.prevent="register">
+                        <v-form @keydown.enter="register">
                           <v-text-field
                             label="Name"
                             name="name"
@@ -187,20 +187,13 @@ export default {
   },
 
   methods: {
-    async register() {
-      await this.$axios.post("api/register", this.form);
-
-      this.$auth.loginWith("local", { data: this.form });
-      this.$router.push("/");
-    },
-
     // async register() {
     //   try {
     //     await this.$axios.post("register", {
-    //         name: this.regForm.name,
-    //         username: this.regForm.username,
-    //         email: this.regForm.email,
-    //         password: this.regForm.password,
+    //       name: this.logForm.email,
+    //       username: this.logForm.username,
+    //       email: this.logForm.email,
+    //       password: this.logForm.password,
     //     });
     //     this.$router.push("/");
     //   } catch (e) {
@@ -208,22 +201,22 @@ export default {
     //   }
     // },
 
-    // async register() {
-    //   try {
-    //     await this.$auth.setUser("local", {
-    //       data: {
-    //         name: this.regForm.name,
-    //         username: this.regForm.username,
-    //         email: this.regForm.email,
-    //         password: this.regForm.password,
-    //       },
-    //     });
-    //     // console.log(this.data);
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    //   this.$router.push("/");
-    // },
+    async register() {
+      try {
+        await this.$auth.setUser("local", {
+          data: {
+            name: this.regForm.name,
+            username: this.regForm.username,
+            email: this.regForm.email,
+            password: this.regForm.password,
+          },
+        });
+        console.log(name);
+      } catch (e) {
+        console.log(e);
+      }
+      this.$router.push("/");
+    },
 
     async login() {
       await this.$auth

@@ -49,17 +49,21 @@ export default {
       local: {
         endpoints: {
           login: {
-            url: 'api/panel/auth/login',
+            url: 'panel/auth/login',
             method: 'post',
             propertyName: 'token'
           },
+          register: {
+            url: 'panel/auth/register',
+            method: 'post',
+          },
           user: {
-            url: 'api/panel/auth/user',
+            url: 'panel/auth/user',
             method: 'get',
             propertyName: 'data'
           },
           logout: {
-            url: 'api/panel/auth/logout',
+            url: 'panel/auth/logout',
             method: 'get',
             propertyName: false
           },
@@ -67,29 +71,27 @@ export default {
           tokenType: 'Bearer'
         }
       }
-    },redirect :{
-      login : '/auth/login',
-      home :'/'
     }
   },
 
-// axios proxy configuration
-proxy: {
-  '/api': {
-    target: 'http://127.0.0.1:8000/api',
-    pathRewrite: {
-      '^/api/': ''
-    }
-  }
-},
-   // axios module configuration
-   axios: {
+ // axios module configuration
+  axios: {
     credentials: true,
     progress: true,
     proxy: true,
-    // baseURL :'http://localhost:8000/api' ,
+    baseUrl: 'http://localhost:8000/api'
   },
 
+
+// axios proxy configuration
+  proxy: {
+    '/api': {
+      target: 'http://localhost:8000/api',
+      pathRewrite: {
+        '^/api/': ''
+      }
+    }
+  },
 
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {

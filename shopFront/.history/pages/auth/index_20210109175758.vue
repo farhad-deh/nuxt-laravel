@@ -103,7 +103,7 @@
                         <h4 class="text-center mt-4">
                           Ensure your email for registration
                         </h4>
-                        <v-form @keydown.prevent="register">
+                        <v-form @submit.prevent="register">
                           <v-text-field
                             label="Name"
                             name="name"
@@ -148,7 +148,7 @@
                           color="teal accent-3"
                           type="submit"
                           dark
-                          @click.prevent="register"
+                          value="register"
                           >Register</v-btn
                         >
                       </div>
@@ -188,7 +188,7 @@ export default {
 
   methods: {
     async register() {
-      await this.$axios.post("api/register", this.form);
+      await this.$axios.post("/panel/auth/register", this.form);
 
       this.$auth.loginWith("local", { data: this.form });
       this.$router.push("/");

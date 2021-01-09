@@ -14,7 +14,7 @@ class PermissionRoleTables extends Migration
     public function up()
     {
         Schema::create('roles',function (Blueprint $table){
-           $table->increments('id') ;
+           $table->id('id') ;
            $table->string('name')->unique() ;
            $table->string('title')->nullable() ;
            $table->string('description')->nullable();
@@ -24,7 +24,7 @@ class PermissionRoleTables extends Migration
 
 
         Schema::create('permissions',function (Blueprint $table){
-            $table->increments('id') ;
+            $table->id('id') ;
             $table->string('name')->unique() ;
             $table->string('title')->nullable() ;
             $table->string('description')->nullable();
@@ -32,17 +32,17 @@ class PermissionRoleTables extends Migration
         });
 
         Schema::create('role_user',function (Blueprint $table){
-            $table->bigInteger('user_id')->unsigned();
+            $table->unsignedBigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
 
-            $table->integer('role_id')->unsigned();
+            $table->unsignedBigInteger('role_id')->unsigned();
             $table->foreign('role_id')->references('id')->on('roles')->onUpdate('cascade')->onDelete('cascade');
 
             $table->primary(['role_id','user_id']);
         });
 
         Schema::create('permission_role',function (Blueprint $table){
-            $table->integer('permission_id')->unsigned();
+            $table->unsignedBigInteger('permission_id')->unsigned();
             $table->foreign('permission_id')->references('id')->on('permissions')->onUpdate('cascade')->onDelete('cascade');
 
             $table->integer('role_id')->unsigned();
