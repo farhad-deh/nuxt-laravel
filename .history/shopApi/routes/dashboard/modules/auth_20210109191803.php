@@ -1,5 +1,7 @@
 <?php
 
+
+use App\Http\Controllers\Dashboard\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('register', 'AuthController@register');

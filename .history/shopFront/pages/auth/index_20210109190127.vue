@@ -166,7 +166,7 @@
 
 <script>
 export default {
-  layout: "auth",
+  layout: "notDefault",
   data() {
     return {
       step: 1,
@@ -189,12 +189,14 @@ export default {
   methods: {
     async register() {
       try {
-        await this.$axios.post("api/panel/auth/register", this.regForm);
-        // this.$auth.loginWith("local", { data: this.form });
-      // this.$router.push("/");
+        await this.$axios.post("api/register", this.form);
       } catch (error) {
         console.log(error.message);
       }
+      
+
+      // this.$auth.loginWith("local", { data: this.form });
+      // this.$router.push("/");
     },
 
     // async register() {

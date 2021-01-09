@@ -189,7 +189,7 @@ export default {
   methods: {
     async register() {
       try {
-        await this.$axios.post("api/panel/auth/register", this.regForm);
+        await this.$axios.post("api/panel/auth/register", this.form);
         // this.$auth.loginWith("local", { data: this.form });
       // this.$router.push("/");
       } catch (error) {
