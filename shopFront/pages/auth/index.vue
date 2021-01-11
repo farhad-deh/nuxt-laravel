@@ -27,33 +27,35 @@
                         <h4 class="text-center mlt-4">
                           Ensure your email for registration
                         </h4>
-                        <v-form @keydown.enter="login">
+                        <v-form @keydown.prevent="login">
                           <v-text-field
                             label="Email"
                             name="email"
-                            prepend-icon="email"
+                            id="email"
                             type="email"
                             color="teal accent-3"
+                            prepend-icon="email"
                             v-model="logForm.email"
+                            :error-messages="errors.email"
                           />
                           <v-text-field
-                            id="password"
                             label="Password"
                             name="password"
+                            id="password"
                             prepend-icon="lock"
                             type="password"
                             color="teal accent-3"
                             v-model="logForm.password"
+                            :error-messages="errors.password"
                           />
                         </v-form>
                         <h3 class="text-center mt-3">Forget your Password</h3>
                       </v-card-text>
                       <div class="text-center mt-3">
                         <v-btn
-                          type="submit"
-                          form="login-form"
                           rounded
                           color="teal accent-3"
+                          type="submit"
                           dark
                           @click.prevent="login"
                           >SIGN IN</v-btn
@@ -112,15 +114,17 @@
                             color="teal accent-3"
                             id="name"
                             v-model="regForm.name"
+                            :error-messages="errors.name"
                           />
                           <v-text-field
                             label="UserName"
-                            name="userName"
+                            name="username"
                             prepend-icon="person"
                             type="text"
                             color="teal accent-3"
-                            id="userName"
-                            v-model="regForm.userName"
+                            id="username"
+                            v-model="regForm.username"
+                            :error-messages="errors.username"
                           />
                           <v-text-field
                             label="Email"
@@ -130,6 +134,7 @@
                             color="teal accent-3"
                             id="email"
                             v-model="regForm.email"
+                            :error-messages="errors.email"
                           />
                           <v-text-field
                             label="Password"
@@ -139,6 +144,7 @@
                             color="teal accent-3"
                             id="password"
                             v-model="regForm.password"
+                            :error-messages="errors.password"
                           />
                         </v-form>
                       </v-card-text>
@@ -172,7 +178,7 @@ export default {
       step: 1,
       regForm: {
         name: "",
-        userName: "",
+        username: "",
         email: "",
         password: "",
       },
@@ -180,6 +186,7 @@ export default {
         email: "",
         password: "",
       },
+      errors: [],
     };
   },
   props: {
@@ -190,54 +197,22 @@ export default {
     async register() {
       try {
         await this.$axios.post("api/panel/auth/register", this.regForm);
-        // this.$auth.loginWith("local", { data: this.form });
-      // this.$router.push("/");
+        this.step = 1;
+        // this.$router.push("/auth");
       } catch (error) {
-        console.log(error.message);
+        this.errors = error.response.data.errors;
       }
     },
-
-    // async register() {
-    //   try {
-    //     await this.$axios.post("register", {
-    //         name: this.regForm.name,
-    //         username: this.regForm.username,
-    //         email: this.regForm.email,
-    //         password: this.regForm.password,
-    //     });
-    //     this.$router.push("/");
-    //   } catch (e) {
-    //     this.error = e.response.data.message;
-    //   }
-    // },
-
-    // async register() {
-    //   try {
-    //     await this.$auth.setUser("local", {
-    //       data: {
-    //         name: this.regForm.name,
-    //         username: this.regForm.username,
-    //         email: this.regForm.email,
-    //         password: this.regForm.password,
-    //       },
-    //     });
-    //     // console.log(this.data);
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    //   this.$router.push("/");
-    // },
-
     async login() {
       await this.$auth
         .loginWith("local", {
           data: {
-            username: this.logForm.email,
+            email: this.logForm.email,
             password: this.logForm.password,
           },
         })
         .catch((e) => {
-          console.log(e);
+          this.errors = e.response.data.errors;
         });
       console.log(this.data);
       //this.$router.push("/");

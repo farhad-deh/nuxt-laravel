@@ -9,5 +9,3 @@ Route::get('user', 'AuthController@user');
 Route::middleware('auth:sanctum')->group(function (){
     Route::post('logout', 'AuthController@logout');
 });
-
-Route::get('test', 'AuthController@test');

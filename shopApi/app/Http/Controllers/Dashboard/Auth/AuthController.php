@@ -13,14 +13,13 @@ use Illuminate\Validation\ValidationException;
 class AuthController extends Controller
 {
     public function login (Request $request){
-
+//        return  response()->json($request,201);
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required',
         ]);
         if ($validator->fails()) {
-           // return response()->json( [ 'errors' => $validator->errors() ], 400 );
-            return response()->json(['riiiiiiiiiiiiiiiiidii'],400 );
+             return response()->json( [ 'errors' => $validator->errors() ], 400 );
         }else{
             $user = User::where('email', $request->email)->first();
         }
@@ -36,6 +35,29 @@ class AuthController extends Controller
         ];
 
         return  response()->json($response,201);
+
+/*----------------------> two way for that <-----------------------*/
+
+//        $request->validate([
+//            'email' => 'required|email',
+//            'password' => 'required',
+////            'device_name' => 'required',
+//        ]);
+//
+//        $user = User::where('email', $request->email)->first();
+//
+//        if (! $user || ! Hash::check($request->password, $user->password)) {
+//            throw ValidationException::withMessages([
+//                'email' => ['The provided credentials are incorrect.'],
+//            ]);
+//        }
+//        $token = $user->createToken($user->username)->plainTextToken;
+//        $response = [
+//            'user' =>  $user,
+//            'token' => $token
+//        ];
+//        return  response()->json($response,201);
+
     }
 
     public function register (Request $request){

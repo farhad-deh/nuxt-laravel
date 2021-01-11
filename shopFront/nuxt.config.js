@@ -67,10 +67,11 @@ export default {
           tokenType: 'Bearer'
         }
       }
-    },redirect :{
-      login : '/auth/login',
-      home :'/'
     }
+    // ,redirect :{
+    //   login : '/auth/login',
+    //   home :'/'
+    // }
   },
 
 // axios proxy configuration
@@ -87,7 +88,6 @@ proxy: {
     credentials: true,
     progress: true,
     proxy: true,
-    // baseURL :'http://localhost:8000/api' ,
   },
 
 
